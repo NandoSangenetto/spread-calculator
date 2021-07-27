@@ -1,5 +1,13 @@
 const EXCHANGE_PROVIDERS = [
   {
+    url: "https://api.exchangerate.host/latest",
+    getExchangeRate: (response) => response.rates.BRL / response.rates.USD,
+  },
+  {
+    url: "https://free.currconv.com/api/v7/convert?q=USD_BRL&compact=ultra&apiKey=a668c0818f1c0dd03049",
+    getExchangeRate: (response) => response.USD_BRL,
+  },
+  {
     url: 'https://api.exchangeratesapi.io/v1/latest?access_key=4b019f46eea2a6a2e9899aaab704ffd9&symbols=BRL,USD',
     getExchangeRate: (response) => response.rates.BRL / response.rates.USD,
   },
