@@ -1,10 +1,10 @@
 const EXCHANGE_PROVIDERS = [
   {
-    url: 'http://api.exchangeratesapi.io/v1/latest?access_key=4b019f46eea2a6a2e9899aaab704ffd9&symbols=BRL,USD',
+    url: 'https://api.exchangeratesapi.io/v1/latest?access_key=4b019f46eea2a6a2e9899aaab704ffd9&symbols=BRL,USD',
     getExchangeRate: (response) => response.rates.BRL / response.rates.USD,
   },
   {
-    url: 'http://data.fixer.io/api/latest?access_key=7cf3878762d89c7c272a381e04229106&symbols=BRL,USD',
+    url: 'https://data.fixer.io/api/latest?access_key=7cf3878762d89c7c272a381e04229106&symbols=BRL,USD',
     getExchangeRate: (response) => response.rates.BRL / response.rates.USD,
   },
   {
