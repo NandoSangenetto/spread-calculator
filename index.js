@@ -51,7 +51,7 @@ calculatorFormNode.addEventListener('submit', async (event) => {
   loadingNode.classList.toggle('loading-hide');
   const salary = salaryInputNode.value;
 
-  const exchangeRate = 5.18;
+  const exchangeRate = await fetchExchangeRate();
   exchangeRateNode.innerHTML = formatCurrency({ number: exchangeRate, language: 'pt-BR', currency: 'BRL' });  
 
   tableRows.forEach(row => {
