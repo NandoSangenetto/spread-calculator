@@ -19,7 +19,7 @@ const EXCHANGE_PROVIDERS = [
     url: 'https://v6.exchangerate-api.com/v6/53a256e115ecb4ef94fb6b4e/latest/USD',
     getExchangeRate: (response) => response.conversion_rates.BRL,
   },
-]
+];
 
 const tableRows = document.querySelectorAll('tbody > tr');
 const salaryInputNode = document.getElementById('salary');
@@ -29,7 +29,7 @@ const loadingNode = document.getElementById('loading');
 
 const formatCurrency = ({ currency = 'USD', language = 'en-US', number }) => new Intl.NumberFormat(language, { style: 'currency', currency })
   .format(number)
-  .replace(/\D00(?=\D*$)/, '')
+  .replace(/(\.|,)[0-9]{2}$/, '');
 
 const fetchExchangeRate = async (attempt = 0) => {
   try {
@@ -51,22 +51,24 @@ calculatorFormNode.addEventListener('submit', async (event) => {
   loadingNode.classList.toggle('loading-hide');
   const salary = salaryInputNode.value;
 
-  const exchangeRate = await fetchExchangeRate();
+  const exchangeRate = 5.18;
   exchangeRateNode.innerHTML = formatCurrency({ number: exchangeRate, language: 'pt-BR', currency: 'BRL' });  
 
   tableRows.forEach(row => {
-    const [_, spread, total] = row.querySelectorAll('td');
+    const [_, spread, fee, total] = row.querySelectorAll('td');
     const realSpread = parseFloat(spread.textContent.replace('%', ''), 10) / 100;
-    const fee = (salary * realSpread);
-    total.dataset.total = salary - fee;
-    total.innerHTML = formatCurrency({ number: salary - fee });;
+    const integerFee = parseInt(fee.textContent.replace('$', ''), 10);
+    const totalDiscount = (salary - (integerFee * 12)) * realSpread;
+    const netPay = salary - totalDiscount;
+    total.dataset.total = netPay;
+    total.innerHTML = formatCurrency({ number: netPay });
   });
 
   tableRows.forEach(row => {
-    const [_, __, totalNode, annuallySavesUSDNode, monthlySavesUSDNode, annuallySavesBRLNode, monthlySavesBRLNode] = row.querySelectorAll('td');
+    const [_, __, ___, totalNode, annuallySavesUSDNode, monthlySavesUSDNode, annuallySavesBRLNode, monthlySavesBRLNode] = row.querySelectorAll('td');
     const total = totalNode.dataset.total;
     const previousColumnsNode = tableRows[0].querySelectorAll('td');
-    const previousTotal = previousColumnsNode[2].dataset.total;
+    const previousTotal = previousColumnsNode[3].dataset.total;
     const annuallySaves = parseInt(total, 10) - parseInt(previousTotal, 10);
     annuallySavesUSDNode.innerHTML = formatCurrency({ number: annuallySaves });
     monthlySavesUSDNode.innerHTML = formatCurrency({ number: parseInt(annuallySaves / 12, 10) });
