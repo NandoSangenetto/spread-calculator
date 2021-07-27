@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spread Calculator</title>
+  <link href="./style.css" rel="stylesheet" />
+  <script src="./index.js" type="text/javascript" defer></script>
+</head>
+<body>
+  <form id="calculator">
+    <label for="salary">Your annual salary:</label>
+    <input type="number" id="salary" min="0" step="100" list="salary-suggestions" required />
+    <button type="submit">Calculate</button>
+  </form>
+
+  <p id="loading" class="loading-hide">Loading...</p>
+
+  <p class="hide">
+    Result considering the actual exchange rate of <span id="exchange-rate"></span>:
+  </p>
+
+  <table class="hide">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Spread</td>
+        <td>Total</td>
+        <td>Annually Saves USD</td>
+        <td>Monthly Saves USD</td>
+        <td>Annualy Saves BRL</td>
+        <td>Monthly Saves BRL</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Payoneer</td>
+        <td>2.0%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Deel</td>
+        <td>1.6%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>RO</td>
+        <td>1.0%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>XP</td>
+        <td>0.6%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+
+  </table>
+</body>
+</html>
